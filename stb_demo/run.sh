@@ -2,6 +2,6 @@
 
 set -e
 
-gcc hello_stb.c log.c/src/log.c -lm -DLOG_USE_COLOR
+gcc 1_hello_stb.c logger/log.c -lm -DLOG_USE_COLOR
 
 ./a.out

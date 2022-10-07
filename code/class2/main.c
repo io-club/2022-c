@@ -7,11 +7,11 @@ typedef struct Map {
   int x;
   int y;
 
-  bool (*check_bound)(struct Map *map, int x, int y);
+  bool (*check)(struct Map *map, int x, int y);
   char **map;
 } Map;
 
-bool check_bound(Map *map, int x, int y) {
+bool check_path(Map *map, int x, int y) {
   char target = map->map[x][y];
   if ((x == 0 || x == map->x - 1 || y == 0 || y == map->y - 1) &&
       target == ' ') {
@@ -34,22 +34,22 @@ bool move(User *user, Map *map, char key) {
   printf("[KEY] %c\n", key);
   switch (key) {
   case 'w':
-    if (map->check_bound(map, user->x - 1, user->y)) {
+    if (map->check(map, user->x - 1, user->y)) {
       user->x -= 1;
     }
     break;
   case 'a':
-    if (map->check_bound(map, user->x, user->y - 1)) {
+    if (map->check(map, user->x, user->y - 1)) {
       user->y -= 1;
     }
     break;
   case 's':
-    if (map->check_bound(map, user->x + 1, user->y)) {
+    if (map->check(map, user->x + 1, user->y)) {
       user->x += 1;
     }
     break;
   case 'd':
-    if (map->check_bound(map, user->x, user->y + 1)) {
+    if (map->check(map, user->x, user->y + 1)) {
       user->y += 1;
     }
     break;
@@ -85,7 +85,7 @@ Map init_map(char map_stack[100][100], int x, int y) {
     heap_map[i] = malloc(sizeof(char *) * y);
     heap_map[i] = map_stack[i];
   }
-  Map map = {.x = x, .y = y, .map = heap_map, .check_bound = check_bound};
+  Map map = {.x = x, .y = y, .map = heap_map, .check = check_path};
   return map;
 }
 
@@ -105,13 +105,15 @@ int main(int argc, char const *argv[]) {
     heap_map[i] = malloc(sizeof(char *) * y);
     heap_map[i] = map_stack[i];
   }
-  Map map = {.x = x, .y = y, .map = heap_map, .check_bound = check_bound};
+
+  Map map = {.x = x, .y = y, .map = heap_map, .check = check_path};
 
   User user = {.x = 1, .y = 1, .move = move};
   while (true) {
     print_map(&map, &user);
-    char c;
-    scanf(" %c", &c);
+    // char c;
+    // scanf(" %c", &c);
+    char c = getchar();
     user.move(&user, &map, c);
   }
 

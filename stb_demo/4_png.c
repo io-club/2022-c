@@ -6,7 +6,7 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "./std_image/stb_image_write.h"
 
-#include "./log.c/src/log.h"
+#include "./logger/log.h"
 
 void read_meta(const char *filename);
 
