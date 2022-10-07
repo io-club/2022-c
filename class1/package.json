@@ -1,0 +1,17 @@
+{
+  "name": "ppt",
+  "private": true,
+  "scripts": {
+    "build": "slidev build --base 2022-c/class1/",
+    "dev": "slidev --open",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@slidev/cli": "^0.36.5",
+    "@slidev/theme-default": "*",
+    "@slidev/theme-seriph": "*"
+  },
+  "devDependencies": {
+    "playwright-chromium": "^1.26.0"
+  }
+}

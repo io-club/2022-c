@@ -1,0 +1,62 @@
+name: Deploy pages
+on: push
+
+permissions: write-all
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      # - uses: actions/setup-node@v2
+      #   with:
+      #     node-version: '14'
+
+      # - name: Install dependencies
+      #   run: npm install
+
+      # - name: Install slidev
+      #   run:  npm i -g @slidev/cli
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - uses: pnpm/action-setup@v2.0.1
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 7
+          run_install: false
+
+      - name: Build
+        run: cd class1 && pnpm install && pnpm build && ls
+
+      - name: Deploy index
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./index
+          publish_branch: gh-pages
+          # destination_dir:
+
+      - name: Deploy class1
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./class1/dist
+          publish_branch: gh-pages
+          destination_dir: class1
+
+      - name: Deploy class2
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./class2
+          publish_branch: gh-pages
+          destination_dir: class2
