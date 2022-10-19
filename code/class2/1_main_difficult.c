@@ -2,7 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef enum PointType { PATH, WALL, OUTPUT, USER } PointType;
+enum PointType { PATH, WALL, OUTPUT, USER };
+typedef enum PointType PointType;
 
 typedef struct Map {
   int x;
@@ -33,36 +34,36 @@ typedef struct User {
 
 PointType move(User *user, Map *map, char key) {
   printf("[KEY] %c\n", key);
-  PointType next_point = PATH;
+  PointType point_type = PATH;
   switch (key) {
   case 'w':
-    next_point = map->get_map_point_type(map, user->x - 1, user->y);
-    if (next_point != WALL) {
+    point_type = map->get_map_point_type(map, user->x - 1, user->y);
+    if (point_type != WALL) {
       user->x -= 1;
     }
     break;
   case 'a':
-    next_point = map->get_map_point_type(map, user->x, user->y - 1);
-    if (next_point != WALL) {
+    point_type = map->get_map_point_type(map, user->x, user->y - 1);
+    if (point_type != WALL) {
       user->y -= 1;
     }
     break;
   case 's':
-    next_point = map->get_map_point_type(map, user->x + 1, user->y);
-    if (next_point != WALL) {
+    point_type = map->get_map_point_type(map, user->x + 1, user->y);
+    if (point_type != WALL) {
       user->x += 1;
     }
     break;
   case 'd':
-    next_point = map->get_map_point_type(map, user->x, user->y + 1);
-    if (next_point != WALL) {
+    point_type = map->get_map_point_type(map, user->x, user->y + 1);
+    if (point_type != WALL) {
       user->y += 1;
     }
     break;
   default:;
     printf("[WARN] 不支持的按键\n");
   }
-  return next_point;
+  return point_type;
 }
 
 void print_map(Map *map, User *user) {
@@ -121,10 +122,13 @@ int main(int argc, char const *argv[]) {
 
   User user = {.x = 1, .y = 1, .move = move};
   while (true) {
+
     system("clear");
     print_map(&map, &user);
+
     char c;
     scanf(" %c", &c);
+
     if (user.move(&user, &map, c) == OUTPUT) {
       system("clear");
       print_map(&map, &user);

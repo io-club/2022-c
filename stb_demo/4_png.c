@@ -13,8 +13,7 @@ void read_meta(const char *filename);
 int main(int argc, char const *argv[]) {
   log_info("加载图片 ...");
   int width, height, channels;
-  unsigned char *img =
-      stbi_load("./example.png", &width, &height, &channels, 0);
+  unsigned char *img = stbi_load("./example.png", &width, &height, &channels, 0);
   read_meta("example.png");
 
   log_info("准备工作 ...");
@@ -53,8 +52,7 @@ int main(int argc, char const *argv[]) {
 
     log_info("写入 ...");
     // write 会自动根据 channel 去分配数组
-    stbi_write_png("result_gray.png", width, height, gray_channels, gray_img,
-                   width * gray_channels);
+    stbi_write_png("result_gray.png", width, height, gray_channels, gray_img, width * gray_channels);
     free(gray_img);
   }
 
@@ -70,14 +68,11 @@ int main(int argc, char const *argv[]) {
     while (p != img + img_size) {
 
       // 三个通道分别转换
-      *pg = (uint8_t)fmin(0.393 * *p + 0.769 * *(p + 1) + 0.189 * *(p + 2),
-                          255.0);
+      *pg = (uint8_t)fmin(0.393 * *p + 0.769 * *(p + 1) + 0.189 * *(p + 2), 255.0);
 
-      *(pg + 1) = (uint8_t)fmin(
-          0.349 * *p + 0.686 * *(p + 1) + 0.168 * *(p + 2), 255.0);
+      *(pg + 1) = (uint8_t)fmin(0.349 * *p + 0.686 * *(p + 1) + 0.168 * *(p + 2), 255.0);
 
-      *(pg + 2) = (uint8_t)fmin(
-          0.272 * *p + 0.534 * *(p + 1) + 0.131 * *(p + 2), 255.0);
+      *(pg + 2) = (uint8_t)fmin(0.272 * *p + 0.534 * *(p + 1) + 0.131 * *(p + 2), 255.0);
 
       // 透明度不变
       if (channels == 4) {
@@ -89,8 +84,7 @@ int main(int argc, char const *argv[]) {
     }
 
     log_info("写入 ...");
-    stbi_write_png("result_sepia.png", width, height, channels, sepia_img,
-                   width * channels);
+    stbi_write_png("result_sepia.png", width, height, channels, sepia_img, width * channels);
     free(sepia_img);
   }
 
@@ -102,6 +96,5 @@ int main(int argc, char const *argv[]) {
 void read_meta(const char *filename) {
   int width, height, channels;
   unsigned char *img = stbi_load(filename, &width, &height, &channels, 0);
-  log_info("[图片：%s] 长：%d 宽：%d 通道数：%d", filename, width, height,
-           channels);
+  log_info("[图片：%s] 长：%d 宽：%d 通道数：%d", filename, width, height, channels);
 }

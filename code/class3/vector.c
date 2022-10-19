@@ -17,16 +17,18 @@ void vec_push(Vector *vec, char elem) {
   vec->len += 1;
 }
 
-Vector *vec_init(int len) {
+Vector *vec_init(int cap) {
   Vector *vec = malloc(sizeof(Vector));
   *vec = (Vector){.len = 0,
-                  .cap = len,
+                  .cap = cap,
                   .push = vec_push,
-                  .inner = malloc(sizeof(char) * len)};
+                  .inner = malloc(sizeof(char) * cap)};
   return vec;
 }
 
-void vec_remove(Vector *vec, size_t index) {}
+void vec_remove(Vector *vec, size_t index) {
+
+}
 
 int main(int argc, char const *argv[]) {
   Vector *vec = vec_init(5);

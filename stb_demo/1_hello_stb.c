@@ -18,13 +18,11 @@ int main(int argc, char const *argv[]) {
   unsigned char *img = stbi_load(filename, &width, &height, &channels, 0);
 
   log_info("读取图片信息 ...");
-  log_info("[图片：%s] 长：%d 宽：%d 通道数：%d", filename, width, height,
-           channels);
+  log_info("[图片：%s] 长：%d 宽：%d 通道数：%d", filename, width, height, channels);
 
   filename = "demo3.jpg";
   img = stbi_load(filename, &width, &height, &channels, 0);
-  log_info("[图片：%s] 长：%d 宽：%d 通道数：%d", filename, width, height,
-           channels);
+  log_info("[图片：%s] 长：%d 宽：%d 通道数：%d", filename, width, height, channels);
 
   log_info("释放 ...");
   stbi_image_free(img);
@@ -35,6 +33,5 @@ int main(int argc, char const *argv[]) {
 void read_meta(const char *filename) {
   int width, height, channels;
   unsigned char *img = stbi_load(filename, &width, &height, &channels, 0);
-  log_info("[图片：%s] 长：%d 宽：%d 通道数：%d", filename, width, height,
-           channels);
+  log_info("[图片：%s] 长：%d 宽：%d 通道数：%d", filename, width, height, channels);
 }

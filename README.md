@@ -19,3 +19,6 @@
   > - `npm run dev`
   > - visit http://localhost:3030
   > 当然 yarn 和 pnpm 也可以，且更推荐。
+
+## class2
+  - 代码在 `code/class2` 目录下
